@@ -14,7 +14,6 @@ test: ## run unit tests
 clean: ## remove temporary files
 	rm -rf server coverage.out coverage-all.out
 
-
 .PHONY: test-cover
 test-cover: test ## run unit tests and show test coverage information
 	go tool cover -html=coverage-all.out

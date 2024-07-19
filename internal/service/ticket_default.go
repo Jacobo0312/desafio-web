@@ -53,3 +53,13 @@ func (s *ServiceTicketDefault) AverageDestination(destination string) (float64, 
 	average := float64(len(total)) / float64(len(tickets)) * 100
 	return average, nil
 }
+
+func (s *ServiceTicketDefault) GetTotalAmountTicketsByCountry(country string) (total int, err error) {
+	tickets, err := s.rp.GetTicketsByDestinationCountry(country)
+	if err != nil {
+		return
+	}
+
+	total = len(tickets)
+	return
+}

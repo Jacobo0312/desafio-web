@@ -30,7 +30,6 @@ func (h *TicketHandler) GetTotalTickets(w http.ResponseWriter, r *http.Request) 
 }
 
 func (h *TicketHandler) GetTotalAmountTickets(w http.ResponseWriter, r *http.Request) {
-
 	total, err := h.service.GetTotalAmountTickets()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -41,8 +40,8 @@ func (h *TicketHandler) GetTotalAmountTickets(w http.ResponseWriter, r *http.Req
 	json.NewEncoder(w).Encode(total)
 }
 
-func (h *TicketHandler) AverageDestination(w http.ResponseWriter, r *http.Request) {
-	destination := chi.URLParam(r, "destination")
+func (h *TicketHandler) GetAverageByCountry(w http.ResponseWriter, r *http.Request) {
+	destination := chi.URLParam(r, "dest")
 	average, err := h.service.AverageDestination(destination)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -51,4 +50,16 @@ func (h *TicketHandler) AverageDestination(w http.ResponseWriter, r *http.Reques
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(average)
+}
+
+func (h *TicketHandler) GetByCountry(w http.ResponseWriter, r *http.Request) {
+	country := chi.URLParam(r, "dest")
+	total, err := h.service.GetTotalAmountTicketsByCountry(country)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(total)
 }
