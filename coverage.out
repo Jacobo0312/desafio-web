@@ -1,0 +1,19 @@
+mode: count
+app/internal/service/ticket_default.go:15.87,19.2 1 2
+app/internal/service/ticket_default.go:22.73,24.2 1 0
+app/internal/service/ticket_default.go:28.79,30.16 2 1
+app/internal/service/ticket_default.go:30.16,32.3 1 0
+app/internal/service/ticket_default.go:34.2,35.8 2 1
+app/internal/service/ticket_default.go:39.94,41.16 2 1
+app/internal/service/ticket_default.go:41.16,43.3 1 0
+app/internal/service/ticket_default.go:44.2,45.33 2 1
+app/internal/service/ticket_default.go:45.33,46.36 1 4
+app/internal/service/ticket_default.go:46.36,48.4 1 3
+app/internal/service/ticket_default.go:50.2,50.16 1 1
+app/internal/service/ticket_default.go:50.16,52.3 1 0
+app/internal/service/ticket_default.go:53.2,53.19 1 1
+app/internal/service/ticket_default.go:59.88,61.16 2 1
+app/internal/service/ticket_default.go:61.16,63.3 1 0
+app/internal/service/ticket_default.go:64.2,66.16 2 1
+app/internal/service/ticket_default.go:66.16,68.3 1 0
+app/internal/service/ticket_default.go:70.2,71.21 2 1

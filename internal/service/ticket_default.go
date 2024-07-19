@@ -21,3 +21,29 @@ func NewServiceTicketDefault(rp repository.RepositoryTicketMap) *ServiceTicketDe
 func (s *ServiceTicketDefault) GetTotalTickets() (total int, err error) {
 	return
 }
+
+// GetTotalAmountTickets returns the total amount of tickets
+func (s *ServiceTicketDefault) GetTotalAmountTickets() (total int, err error) {
+	tickets, err := s.rp.Get()
+	if err != nil {
+		return
+	}
+
+	total = len(tickets)
+	return
+}
+
+func (s *ServiceTicketDefault) AverageDestination(destination string) (float64, error) {
+	tickets, err := s.rp.Get()
+	if err != nil {
+		return 0, err
+	}
+	total, err := s.rp.GetTicketsByDestinationCountry(destination)
+
+	if err != nil {
+		return 0, err
+	}
+
+	average := float64(len(total)) / float64(len(tickets)) * 100
+	return average, nil
+}

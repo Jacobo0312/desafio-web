@@ -86,7 +86,9 @@ func (a *ApplicationDefault) SetUp() (err error) {
 	rp := repository.NewRepositoryTicketMap(data, len(data))
 	ticketService := service.NewServiceTicketDefault(rp)
 
-	tickerHandler := NewHandlerTicketDefault(ticketService)
+	fmt.Println(ticketService)
+
+	//tickerHandler := NewHandlerTicketDefault(ticketService)
 
 	// service ...
 	// handler ...

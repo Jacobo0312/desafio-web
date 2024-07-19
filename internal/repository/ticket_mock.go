@@ -2,7 +2,6 @@ package repository
 
 import (
 	"app/internal/domain"
-	"context"
 )
 
 // NewRepositoryTicketMock creates a new repository for tickets in a map
@@ -27,7 +26,7 @@ type RepositoryTicketMock struct {
 }
 
 // GetAll returns all the tickets
-func (r *RepositoryTicketMock) Get(ctx context.Context) (t map[int]domain.TicketAttributes, err error) {
+func (r *RepositoryTicketMock) Get() (t map[int]domain.TicketAttributes, err error) {
 	// spy
 	r.Spy.Get++
 
@@ -37,7 +36,7 @@ func (r *RepositoryTicketMock) Get(ctx context.Context) (t map[int]domain.Ticket
 }
 
 // GetTicketsByDestinationCountry returns the tickets filtered by destination country
-func (r *RepositoryTicketMock) GetTicketsByDestinationCountry(ctx context.Context, country string) (t map[int]domain.TicketAttributes, err error) {
+func (r *RepositoryTicketMock) GetTicketsByDestinationCountry(country string) (t map[int]domain.TicketAttributes, err error) {
 	// spy
 	r.Spy.GetTicketsByDestinationCountry++
 

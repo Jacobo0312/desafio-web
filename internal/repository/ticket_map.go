@@ -2,19 +2,23 @@ package repository
 
 import (
 	"app/internal/domain"
-	"context"
 )
 
+type RepositoryTicketMap interface {
+	Get() (t map[int]domain.TicketAttributes, err error)
+	GetTicketsByDestinationCountry(country string) (t map[int]domain.TicketAttributes, err error)
+}
+
 // NewRepositoryTicketMap creates a new repository for tickets in a map
-func NewRepositoryTicketMap(db map[int]domain.TicketAttributes, lastId int) RepositoryTicketMap {
-	return RepositoryTicketMap{
+func NewRepositoryTicketMap(db map[int]domain.TicketAttributes, lastId int) repositoryTicketMap {
+	return repositoryTicketMap{
 		db:     db,
 		lastId: lastId,
 	}
 }
 
 // RepositoryTicketMap implements the repository interface for tickets in a map
-type RepositoryTicketMap struct {
+type repositoryTicketMap struct {
 	// db represents the database in a map
 	// - key: id of the ticket
 	// - value: ticket
@@ -25,7 +29,7 @@ type RepositoryTicketMap struct {
 }
 
 // GetAll returns all the tickets
-func (r *RepositoryTicketMap) Get(ctx context.Context) (t map[int]domain.TicketAttributes, err error) {
+func (r *repositoryTicketMap) Get() (t map[int]domain.TicketAttributes, err error) {
 	// create a copy of the map
 	t = make(map[int]domain.TicketAttributes, len(r.db))
 	for k, v := range r.db {
@@ -36,7 +40,7 @@ func (r *RepositoryTicketMap) Get(ctx context.Context) (t map[int]domain.TicketA
 }
 
 // GetTicketsByDestinationCountry returns the tickets filtered by destination country
-func (r *RepositoryTicketMap) GetTicketsByDestinationCountry(ctx context.Context, country string) (t map[int]domain.TicketAttributes, err error) {
+func (r *repositoryTicketMap) GetTicketsByDestinationCountry(country string) (t map[int]domain.TicketAttributes, err error) {
 	// create a copy of the map
 	t = make(map[int]domain.TicketAttributes)
 	for k, v := range r.db {
