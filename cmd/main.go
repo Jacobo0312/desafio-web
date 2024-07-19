@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"app/internal/handler"
 	"app/internal/loader"
 	"app/internal/repository"
 	"app/internal/service"
@@ -86,12 +87,7 @@ func (a *ApplicationDefault) SetUp() (err error) {
 	rp := repository.NewRepositoryTicketMap(data, len(data))
 	ticketService := service.NewServiceTicketDefault(rp)
 
-	fmt.Println(ticketService)
-
-	//tickerHandler := NewHandlerTicketDefault(ticketService)
-
-	// service ...
-	// handler ...
+	tickerHandler := handler.NewTicketHandler(ticketService)
 
 	// routes
 	(*a).rt.Get("/health", func(w http.ResponseWriter, r *http.Request) {
@@ -100,11 +96,16 @@ func (a *ApplicationDefault) SetUp() (err error) {
 		w.Write([]byte("OK"))
 	})
 
+	(*a).rt.Get("/tickets/total", tickerHandler.GetTotalTickets)
+	(*a).rt.Get("/tickets/total_amount", tickerHandler.GetTotalAmountTickets)
+	(*a).rt.Get("/tickets/average/{destination}", tickerHandler.AverageDestination)
+
 	return
 }
 
 // Run runs the application
 func (a *ApplicationDefault) Run() (err error) {
+	log.Printf("Server running on %s", a.serverAddr)
 	err = http.ListenAndServe(a.serverAddr, a.rt)
 	return
 }

@@ -3,7 +3,7 @@ package loader
 import (
 	"encoding/csv"
 	"fmt"
-	"io"
+	"log"
 	"os"
 	"strconv"
 
@@ -24,6 +24,9 @@ type LoaderTicketCSV struct {
 
 // Load loads the tickets from the CSV file
 func (t *LoaderTicketCSV) Load() (tickets map[int]domain.TicketAttributes, err error) {
+
+	log.Println("Loading tickets from CSV file...")
+
 	// open the file
 	f, err := os.Open(t.filePath)
 	if err != nil {
@@ -35,18 +38,15 @@ func (t *LoaderTicketCSV) Load() (tickets map[int]domain.TicketAttributes, err e
 	// read the file
 	r := csv.NewReader(f)
 
+	records, err := r.ReadAll()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
 	// read the records
 	tickets = make(map[int]domain.TicketAttributes)
-	for {
-		record, err2 := r.Read()
-		if err != nil {
-			if err2 == io.EOF {
-				break
-			}
-
-			err = fmt.Errorf("error reading file: %v", err2)
-			return
-		}
+	for _, record := range records {
 
 		// serialize the record
 		id, err3 := strconv.Atoi(record[0])

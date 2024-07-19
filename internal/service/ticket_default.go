@@ -11,15 +11,21 @@ type ServiceTicketDefault struct {
 }
 
 // NewServiceTicketDefault creates a new default service of the tickets
-func NewServiceTicketDefault(rp repository.RepositoryTicketMap) *ServiceTicketDefault {
-	return &ServiceTicketDefault{
+func NewServiceTicketDefault(rp repository.RepositoryTicketMap) ServiceTicketDefault {
+	return ServiceTicketDefault{
 		rp: rp,
 	}
 }
 
 // GetTotalTickets returns the total number of tickets
 func (s *ServiceTicketDefault) GetTotalTickets() (total int, err error) {
-	return
+
+	tickets, err := s.rp.Get()
+
+	if err != nil {
+		return 0, err
+	}
+	return len(tickets), nil
 }
 
 // GetTotalAmountTickets returns the total amount of tickets

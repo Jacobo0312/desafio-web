@@ -10,8 +10,8 @@ type RepositoryTicketMap interface {
 }
 
 // NewRepositoryTicketMap creates a new repository for tickets in a map
-func NewRepositoryTicketMap(db map[int]domain.TicketAttributes, lastId int) repositoryTicketMap {
-	return repositoryTicketMap{
+func NewRepositoryTicketMap(db map[int]domain.TicketAttributes, lastId int) RepositoryTicketMap {
+	return &repositoryTicketMap{
 		db:     db,
 		lastId: lastId,
 	}
